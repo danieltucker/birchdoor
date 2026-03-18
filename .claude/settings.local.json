@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(file /Users/danieltucker/dev/birchdoor/images/*.jpg)"
+    ]
+  }
+}

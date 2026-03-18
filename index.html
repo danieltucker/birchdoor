@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Birch Door Café | Bellingham, WA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #faf6ee;
+    --parchment: #f2ebe0;
+    --warm-gold: #c8a86b;
+    --mid-gold: #b8945a;
+    --text-dark: #3d2e1e;
+    --text-mid: #6b5240;
+    --text-light: #9c7e65;
+    --rust: #b85c3a;
+    --nav-bg: #2a1f14;
+    --hero-bg: #cec0a4;
+    --card-bg: #f6f0e6;
+    --border: rgba(184,148,90,0.22);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--text-dark);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--nav-bg);
+    border-bottom: 1px solid rgba(200,168,107,0.3);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 54px;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic;
+    color: var(--warm-gold); letter-spacing: 0.04em; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'EB Garamond', serif; font-size: 0.82rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(242,235,224,0.7); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--warm-gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; background: var(--hero-bg);
+    background-image: radial-gradient(ellipse at 25% 65%, rgba(200,168,107,0.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 25%, rgba(184,92,58,0.1) 0%, transparent 45%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 6rem 2rem 5rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 47px, rgba(61,46,30,0.06) 47px, rgba(61,46,30,0.06) 48px);
+  }
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; letter-spacing: 0.4em;
+    text-transform: uppercase; color: var(--mid-gold); opacity: 0.9; margin-bottom: 1.8rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(3.2rem, 8.5vw, 7rem);
+    font-weight: 400; color: var(--text-dark); line-height: 1.0;
+  }
+  .hero h1 em { font-style: italic; color: var(--rust); }
+  .hero-rule { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--mid-gold), transparent); margin: 2rem auto; }
+  .hero-info {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--text-mid);
+    letter-spacing: 0.08em; line-height: 2.1; margin-bottom: 2.8rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    display: inline-block; background: var(--nav-bg); color: var(--warm-gold);
+    font-family: 'EB Garamond', serif; font-size: 0.88rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+    padding: 0.9rem 2.4rem; border: 1.5px solid var(--nav-bg); transition: all 0.22s;
+  }
+  .btn-primary:hover { background: transparent; color: var(--nav-bg); border-color: var(--nav-bg); }
+  .btn-ghost {
+    display: inline-block; background: transparent; color: var(--text-mid);
+    font-family: 'EB Garamond', serif; font-size: 0.88rem; letter-spacing: 0.2em;
+    text-transform: uppercase; text-decoration: none; padding: 0.9rem 2.4rem;
+    border: 1px solid rgba(61,46,30,0.3); transition: all 0.22s;
+  }
+  .btn-ghost:hover { border-color: var(--text-dark); color: var(--text-dark); }
+
+  /* FEATURE STRIP */
+  .sketch-strip {
+    background: var(--parchment);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem;
+  }
+  .sketch-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; align-items: center;
+  }
+  .sketch-item {
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    padding: 1.2rem 1.4rem; border-right: 1px solid var(--border); text-align: center;
+  }
+  .sketch-item:last-child { border-right: none; }
+  .feat-orn { font-size: 1.1rem; color: var(--warm-gold); margin-bottom: 0.5rem; }
+  .feat-title {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400;
+    font-style: italic; color: var(--text-dark); line-height: 1.2;
+  }
+  .feat-rule { width: 28px; height: 1px; background: var(--warm-gold); opacity: 0.4; margin: 0.45rem auto; }
+  .feat-sub {
+    font-family: 'Cormorant Garamond', serif; font-size: 0.75rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-light);
+  }
+
+  /* MENU SECTION */
+  .menu-section { padding: 5rem 2rem; background: var(--cream); }
+  .section-header { text-align: center; margin-bottom: 2.5rem; }
+  .section-ornament { display: block; font-size: 1.2rem; color: var(--warm-gold); margin-bottom: 0.5rem; }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4.5vw, 3rem);
+    font-weight: 400; color: var(--text-dark); line-height: 1.1;
+  }
+  .section-header h2 em { font-style: italic; color: var(--rust); }
+  .section-rule { display: flex; align-items: center; gap: 0.8rem; max-width: 260px; margin: 1rem auto 0; justify-content: center; }
+  .section-rule::before, .section-rule::after { content: ''; flex: 1; height: 1px; background: var(--warm-gold); opacity: 0.4; }
+  .section-rule span { font-size: 0.9rem; color: var(--warm-gold); opacity: 0.6; }
+  .section-sub { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; letter-spacing: 0.12em; color: var(--text-light); margin-top: 0.8rem; text-align: center; }
+
+  /* TABS */
+  .menu-tabs {
+    display: flex; justify-content: center; margin-bottom: 3rem;
+    border: 1px solid var(--border); background: var(--card-bg);
+    width: fit-content; margin-left: auto; margin-right: auto;
+  }
+  .tab-btn {
+    background: transparent; border: none; font-family: 'EB Garamond', serif;
+    font-size: 0.84rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-light); padding: 0.75rem 1.8rem; cursor: pointer;
+    border-right: 1px solid var(--border); transition: all 0.18s;
+  }
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn.active, .tab-btn:hover { background: var(--nav-bg); color: var(--warm-gold); }
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  /* CATEGORY */
+  .cat-head { text-align: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+  .cat-head h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 400; font-style: italic; color: var(--text-dark); }
+  .cat-head p { font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-light); margin-top: 0.2rem; }
+  .cat-divider { text-align: center; margin: 2.5rem 0; color: var(--warm-gold); opacity: 0.45; font-size: 1.1rem; letter-spacing: 0.8em; }
+  .menu-inner { max-width: 1100px; margin: 0 auto; }
+
+  /* CARDS */
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+  .menu-grid.two-col { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .menu-item {
+    background: var(--card-bg); border: 1px solid var(--border);
+    padding: 1.3rem 1.4rem; position: relative; transition: box-shadow 0.2s, transform 0.18s;
+  }
+  .menu-item:hover { box-shadow: 0 4px 20px rgba(61,46,30,0.08); transform: translateY(-2px); }
+  .menu-item::after {
+    content: ''; position: absolute; top: 4px; left: 4px; right: 4px; bottom: 4px;
+    border: 1px solid rgba(200,168,107,0.12); pointer-events: none;
+  }
+  .item-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.35rem; line-height: 1.2; padding-right: 3.2rem; }
+  .item-price { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 500; color: var(--rust); position: absolute; top: 1.3rem; right: 1.4rem; }
+  .item-desc { font-family: 'EB Garamond', serif; font-size: 0.91rem; color: var(--text-mid); opacity: 0.85; line-height: 1.55; font-style: italic; }
+  .menu-item.featured { background: var(--nav-bg); border-color: rgba(200,168,107,0.3); grid-column: span 2; }
+  @media (max-width: 720px) { .menu-item.featured { grid-column: span 1; } }
+  .menu-item.featured::after { border-color: rgba(200,168,107,0.14); }
+  .menu-item.featured .item-name { color: var(--cream); }
+  .menu-item.featured .item-price { color: var(--warm-gold); }
+  .menu-item.featured .item-desc { color: var(--parchment); opacity: 0.62; }
+
+  /* SKETCH FEATURE BAND */
+  .sketch-feature { background: var(--parchment); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 4.5rem 2rem; }
+  .sketch-feature-header { text-align: center; margin-bottom: 3.5rem; }
+  .sketch-feature-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .sketch-feature-inner > .sketch-feature-text:first-child { border-right: 1px solid var(--border); padding-right: 4rem; }
+  .sketch-feature-text h3 { font-family: 'Playfair Display', serif; font-size: 1.85rem; font-weight: 400; font-style: italic; color: var(--text-dark); margin-bottom: 1rem; line-height: 1.2; }
+  .sketch-feature-text h3::before { content: '✦'; font-size: 0.75rem; color: var(--warm-gold); display: block; margin-bottom: 0.6rem; letter-spacing: 0.1em; }
+  .sketch-feature-text p { font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--text-mid); line-height: 1.85; margin-bottom: 0.8rem; }
+
+  /* BEVERAGES */
+  .bev-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 0.9rem; }
+  .bev-item { padding: 0.75rem 1rem; border-left: 2px solid var(--warm-gold); background: rgba(200,168,107,0.06); position: relative; }
+  .bev-item .item-name { font-size: 0.93rem; padding-right: 3rem; }
+  .bev-item .item-price { font-size: 0.9rem; top: 0.75rem; right: 0.9rem; }
+  .bev-item .item-desc { font-size: 0.82rem; opacity: 0.7; }
+
+  /* STORY */
+  .story-wrap { background: var(--nav-bg); padding: 5.5rem 2rem; }
+  .story-inner { max-width: 800px; margin: 0 auto; }
+  .story-inner h2 { font-family: 'Playfair Display', serif; font-size: 2.3rem; font-weight: 400; font-style: italic; color: var(--cream); text-align: center; margin-bottom: 0.5rem; }
+  .story-rule { width: 50px; height: 1px; background: var(--warm-gold); opacity: 0.4; margin: 1rem auto 2.5rem; }
+  .story-cols { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start; max-width: 640px; margin: 0 auto; }
+  .story-inner p { font-family: 'EB Garamond', serif; font-size: 1.03rem; color: var(--parchment); opacity: 0.7; line-height: 1.9; margin-bottom: 1.1rem; }
+  .story-sig { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-style: italic; color: var(--warm-gold); margin-top: 1.5rem; }
+  .story-sketch { opacity: 0.5; }
+  .story-sketch svg { width: 100%; height: auto; }
+
+  /* FOOTER */
+  footer { background: #1a110a; border-top: 1px solid rgba(200,168,107,0.18); padding: 3rem 2rem; text-align: center; }
+  footer .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-style: italic; color: var(--warm-gold); margin-bottom: 1rem; }
+  footer p { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--parchment); opacity: 0.48; letter-spacing: 0.07em; line-height: 2; }
+  footer a { color: var(--warm-gold); text-decoration: none; }
+  .footer-links { margin-top: 1.5rem; display: flex; gap: 2rem; justify-content: center; }
+  .footer-links a { font-family: 'EB Garamond', serif; font-size: 0.83rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--parchment); opacity: 0.38; text-decoration: none; transition: opacity 0.2s; }
+  .footer-links a:hover { opacity: 0.9; color: var(--warm-gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sketch-feature-inner { grid-template-columns: 1fr; }
+    .sketch-feature-inner > .sketch-feature-text:first-child { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 3rem; }
+    .story-cols { grid-template-columns: 1fr; }
+    .story-sketch { display: none; }
+  }
+  @media (max-width: 700px) {
+    .sketch-inner { grid-template-columns: repeat(3, 1fr); }
+    .sketch-item:nth-child(n+4) { display: none; }
+    .menu-tabs { flex-direction: column; width: 100%; }
+    .tab-btn { border-right: none; border-bottom: 1px solid var(--border); }
+    .tab-btn:last-child { border-bottom: none; }
+  }
+  @media (max-width: 480px) {
+    .sketch-inner { grid-template-columns: repeat(2, 1fr); }
+    .sketch-item:nth-child(n+3) { display: none; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">The Birch Door Café</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="https://direct.chownow.com/order/27116/locations/40149" target="_blank">Order Online</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Bellingham, Washington · Est. with Love</div>
+  <h1>The Birch<br><em>Door Café</em></h1>
+  <div class="hero-rule"></div>
+  <div class="hero-info">
+    Open Daily 7am – 3pm &nbsp;·&nbsp; No Reservations<br>
+    Breakfast served all day &nbsp;·&nbsp; Lunch Mon–Fri after 11am<br>
+    4192 Meridian St &nbsp;·&nbsp; (360) 306-8598
+  </div>
+  <div class="hero-btns">
+    <a href="https://direct.chownow.com/order/27116/locations/40149" class="btn-primary" target="_blank">Order Online</a>
+    <a href="#menu" class="btn-ghost">View Menu</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- FEATURE STRIP                      -->
+<!-- ═══════════════════════════════════ -->
+<div class="sketch-strip">
+  <div class="sketch-inner">
+
+    <div class="sketch-item">
+      <span class="feat-orn">✦</span>
+      <div class="feat-title">Made From Scratch</div>
+      <div class="feat-rule"></div>
+      <div class="feat-sub">Every morning</div>
+    </div>
+
+    <div class="sketch-item">
+      <span class="feat-orn">✦</span>
+      <div class="feat-title">Heirloom Sourdough</div>
+      <div class="feat-rule"></div>
+      <div class="feat-sub">Three generations</div>
+    </div>
+
+    <div class="sketch-item">
+      <span class="feat-orn">✦</span>
+      <div class="feat-title">Open Daily</div>
+      <div class="feat-rule"></div>
+      <div class="feat-sub">7am – 3pm</div>
+    </div>
+
+    <div class="sketch-item">
+      <span class="feat-orn">✦</span>
+      <div class="feat-title">Locally Sourced</div>
+      <div class="feat-rule"></div>
+      <div class="feat-sub">Bellingham, WA</div>
+    </div>
+
+    <div class="sketch-item">
+      <span class="feat-orn">✦</span>
+      <div class="feat-title">Fresh Pressed Juice</div>
+      <div class="feat-rule"></div>
+      <div class="feat-sub">Squeezed daily</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- MENU                               -->
+<!-- ═══════════════════════════════════ -->
+<div id="menu" class="menu-section">
+  <div class="section-header" style="max-width:1100px; margin:0 auto 2.5rem;">
+    <span class="section-ornament">✦</span>
+    <h2>Our <em>Menu</em></h2>
+    <div class="section-rule"><span>✦</span></div>
+    <p class="section-sub">Three generations of restaurant excellence · Everything made from scratch, every morning</p>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="showTab('breakfast',this)">Breakfast</button>
+    <button class="tab-btn" onclick="showTab('specialties',this)">House Specialties</button>
+    <button class="tab-btn" onclick="showTab('eggs',this)">Eggs & Omelettes</button>
+    <button class="tab-btn" onclick="showTab('lunch',this)">Lunch</button>
+    <button class="tab-btn" onclick="showTab('drinks',this)">Drinks</button>
+  </div>
+
+  <div class="menu-inner">
+
+    <!-- BREAKFAST -->
+    <div id="panel-breakfast" class="menu-panel active">
+      <div class="cat-head"><h3>Buttermilk Pancakes</h3><p>Our heirloom sourdough starter · Made fresh every morning</p></div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-price">$15.25</div><div class="item-name">Classic Buttermilk Pancakes</div><div class="item-desc">Six light, fine-textured pancakes from our sourdough starter. Served with house-whipped butter and Birch Door maple syrup.</div></div>
+        <div class="menu-item"><div class="item-price">$16.75</div><div class="item-name">Blueberry Pancakes</div><div class="item-desc">Filled and topped with blueberries. Served with house-made blueberry syrup.</div></div>
+        <div class="menu-item"><div class="item-price">$16.75</div><div class="item-name">Bacon Pancakes</div><div class="item-desc">House-ground bacon baked inside — a genius combination of sweet and savory.</div></div>
+        <div class="menu-item"><div class="item-price">$16.35</div><div class="item-name">Chocolate Chip Pancakes</div><div class="item-desc">Chocolaty goodness baked right in.</div></div>
+        <div class="menu-item"><div class="item-price">$16.75</div><div class="item-name">Apple & Cinnamon Pancakes</div><div class="item-desc">Apples baked inside, sprinkled with cinnamon-sugar, served with house-made apple syrup.</div></div>
+        <div class="menu-item"><div class="item-price">$16.75</div><div class="item-name">Roasted Pecan Pancakes</div><div class="item-desc">A taste of the south, with pecans freshly roasted in our kitchen.</div></div>
+      </div>
+      <div class="cat-divider">· · ✦ · ·</div>
+      <div class="cat-head"><h3>Creative Pancakes</h3><p>Our most inventive stacks</p></div>
+      <div class="menu-grid">
+        <div class="menu-item featured"><div class="item-price">$21.45</div><div class="item-name">The Apple Pancake</div><div class="item-desc">The pride of our kitchen. Made in the tradition of a soufflé — oven-baked until at least 3 inches high, filled with fresh apples peeled and cut in-house, covered with a pure cinnamon-sugar glaze. A pancake you'll talk about forever.</div></div>
+        <div class="menu-item"><div class="item-price">$18.95</div><div class="item-name">Strawberry-Granola Pancakes</div><div class="item-desc">Buttermilk batter mixed with house-made granola, topped with fresh strawberries, whipped cream, and warm strawberry syrup.</div></div>
+        <div class="menu-item"><div class="item-price">$16.75</div><div class="item-name">Buckwheat Pancakes</div><div class="item-desc">Organic buckwheat flour and old-fashioned goodness make these extra special.</div></div>
+        <div class="menu-item"><div class="item-price">$18.35</div><div class="item-name">49'er Flapjacks</div><div class="item-desc">Three large, thin, and creamy pancakes — sweet and moist, simply unforgettable.</div></div>
+        <div class="menu-item"><div class="item-price">$16.95</div><div class="item-name">Pigs in a Blanket</div><div class="item-desc">Three sausage links gently rolled up in three buttermilk pancake "blankets," topped with whipped butter.</div></div>
+      </div>
+      <div class="cat-divider">· · ✦ · ·</div>
+      <div class="cat-head"><h3>Breakfast Platters</h3><p>A complete morning meal</p></div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-price">$19.95</div><div class="item-name">The Birch Door Breakfast</div><div class="item-desc">Two eggs and your choice of meat with three buttermilk pancakes. Choose: thick bacon, link or patty sausage, old-fashioned ham, or Canadian bacon.</div></div>
+        <div class="menu-item"><div class="item-price">$17.95</div><div class="item-name">The Tradition</div><div class="item-desc">A large serving of breakfast potatoes with two eggs cooked to order and your choice of toast with raspberry jam.</div></div>
+        <div class="menu-item"><div class="item-price">$15.95</div><div class="item-name">Two by Four</div><div class="item-desc">Two cage-free eggs cooked to order and four buttermilk pancakes.</div></div>
+        <div class="menu-item"><div class="item-price">$16.95</div><div class="item-name">Classic French Toast</div><div class="item-desc">Two slices of extra-thick sourdough dipped in our special batter and grilled to perfection.</div></div>
+        <div class="menu-item"><div class="item-price">$20.75</div><div class="item-name">Buttermilk Breakfast</div><div class="item-desc">Two buttermilk pancakes, one egg, two sausage links or two thick slices of bacon. With coffee and a small juice.</div></div>
+        <div class="menu-item"><div class="item-price">$20.75</div><div class="item-name">Fairhaven Breakfast</div><div class="item-desc">Two buckwheat pancakes, fresh fruit, one egg, coffee, and your choice of small juice.</div></div>
+        <div class="menu-item"><div class="item-price">$20.75</div><div class="item-name">French Toast Breakfast</div><div class="item-desc">One slice of French toast, one egg, two sausage links or bacon. With coffee and small juice.</div></div>
+      </div>
+    </div>
+
+    <!-- SPECIALTIES -->
+    <div id="panel-specialties" class="menu-panel">
+      <div class="cat-head"><h3>House Specialties</h3><p>The dishes that define us</p></div>
+      <div class="menu-grid">
+        <div class="menu-item featured"><div class="item-price">$20.25</div><div class="item-name">Blueberry Lemon Cobbler French Toast</div><div class="item-desc">One of our most beloved dishes. Hand-battered french toast rolled in house-made oat cobbler, topped with vibrant blueberries, scratch-made lemon curd, and real whipped cream. Served with warm blueberry syrup.</div></div>
+        <div class="menu-item"><div class="item-price">$19.55</div><div class="item-name">Fresh Fruit Blintzes</div><div class="item-desc">Grandmother's recipe — creamy-sweet ricotta filling wrapped in three French crepes, topped with fresh strawberries or blueberries.</div></div>
+        <div class="menu-item"><div class="item-price">$20.75</div><div class="item-name">Western Skillet</div><div class="item-desc">Diced ham, red and green bell peppers, and onions grilled with breakfast potatoes, topped with sharp cheddar and two cage-free eggs.</div></div>
+        <div class="menu-item"><div class="item-price">$19.95</div><div class="item-name">German Pancake</div><div class="item-desc">As light as the finest custard, oven-baked until golden brown, served with fresh lemon wedges and powdered sugar. A real bell-ringer!</div></div>
+        <div class="menu-item"><div class="item-price">$18.45</div><div class="item-name">Biscuit & Gravy Breakfast</div><div class="item-desc">A scratch cream biscuit blanketed with gourmet country gravy packed with sausage and hand-crumbled bacon, tempered with sherry and thyme. Sided with two cage-free eggs. Vegetarian mushroom gravy available.</div></div>
+        <div class="menu-item"><div class="item-price">$22.45</div><div class="item-name">Corned Beef Hash</div><div class="item-desc">Hand-carved in-house corned beef with a savory sauté of peppers and onions and home-style potatoes. An elevated classic, served with two cage-free eggs.</div></div>
+        <div class="menu-item"><div class="item-price">$15.85</div><div class="item-name">Fresh Fruit Porridge</div><div class="item-desc">Made-to-order organic whole rolled oats with fresh apples, blueberries, strawberries, and a dash of cinnamon-sugar. Served with brown sugar and cream.</div></div>
+        <div class="menu-item"><div class="item-price">$14.95</div><div class="item-name">Yogurt Parfait</div><div class="item-desc">A large chilled goblet carefully layered with vanilla Greek yogurt, fresh fruit, and our homemade granola.</div></div>
+      </div>
+    </div>
+
+    <!-- EGGS -->
+    <div id="panel-eggs" class="menu-panel">
+      <div class="cat-head"><h3>French Baked Omelettes</h3><p>Finished in the oven · Served with three buttermilk pancakes</p></div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-price">$19.95</div><div class="item-name">Ham and Cheddar Omelette</div><div class="item-desc">Plenty of diced ham and cheddar cheese folded into fluffy eggs.</div></div>
+        <div class="menu-item"><div class="item-price">$19.95</div><div class="item-name">Bacon and Swiss Omelette</div><div class="item-desc">Gourmet house-ground bacon and shredded Swiss cheese.</div></div>
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">Western Omelette</div><div class="item-desc">Sautéed onions and peppers with smoked ham and sharp cheddar.</div></div>
+        <div class="menu-item"><div class="item-price">$21.95</div><div class="item-name">Mexican Omelette</div><div class="item-desc">Sautéed peppers and onions, bacon and pepper jack, topped with salsa sour cream sauce and diced tomatoes.</div></div>
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">Florentine Omelette</div><div class="item-desc">A delicate sauté of mushrooms, spinach, and onion combined with Swiss cheese.</div></div>
+        <div class="menu-item"><div class="item-price">$21.95</div><div class="item-name">Dubliner Omelette</div><div class="item-desc">Chopped in-house corned beef with Swiss cheese gives our omelette an Irish twist.</div></div>
+        <div class="menu-item"><div class="item-price">$21.75</div><div class="item-name">Mushroom Omelette</div><div class="item-desc">Mushroom and sherry béchamel sauce atop eggs woven with sliced mushrooms and Swiss cheese. Add bacon $2.95.</div></div>
+      </div>
+      <div class="cat-divider">· · ✦ · ·</div>
+      <div class="cat-head"><h3>Stylish Egg Entrées</h3><p>Cage-free eggs · Cooked in pure clarified butter</p></div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">Eggs Nicole</div><div class="item-desc">Mushrooms, onions, spinach, and Swiss scrambled into three eggs on a toasted croissant under hollandaise. With three buttermilk pancakes.</div></div>
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">Eggs Kory</div><div class="item-desc">House-ground bacon and cheddar folded into three scrambled eggs atop a toasted croissant, finished with mushroom sauce. With three buttermilk pancakes.</div></div>
+      </div>
+      <div class="cat-divider">· · ✦ · ·</div>
+      <div class="cat-head"><h3>Eggs Benedict</h3><p>Five brilliant takes on a breakfast legend · With three pancakes or breakfast potatoes</p></div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">Classic Benedict</div><div class="item-desc">Two poached eggs and Canadian bacon atop a toasted English muffin, finished with hollandaise sauce.</div></div>
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">Country Style Benedict</div><div class="item-desc">Two poached eggs atop sausage patties and a toasted English muffin, topped with mushroom béchamel sauce.</div></div>
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">California Benedict</div><div class="item-desc">Sliced tomato and fresh avocado nestled between two poached eggs and a toasted English muffin. Topped with hollandaise.</div></div>
+        <div class="menu-item"><div class="item-price">$22.45</div><div class="item-name">Northwestern Benedict</div><div class="item-desc">Local wild Pacific smoked salmon on a toasted English muffin under two poached eggs. Topped with hollandaise and a sprinkle of dill.</div></div>
+        <div class="menu-item"><div class="item-price">$21.45</div><div class="item-name">Homestead Benedict</div><div class="item-desc">Two strips of thick bacon and two poached eggs on a toasted English muffin, smothered in country gravy.</div></div>
+      </div>
+      <div class="cat-divider">· · ✦ · ·</div>
+      <div class="cat-head"><h3>Gourmet Scrambles</h3><p>Four cage-free eggs · Served with three buttermilk pancakes</p></div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-price">$19.95</div><div class="item-name">Classic Scramble</div><div class="item-desc">Gourmet bacon or diced smoked ham scrambled with Swiss, sharp cheddar, or pepper jack.</div></div>
+        <div class="menu-item"><div class="item-price">$20.25</div><div class="item-name">Baja Scramble</div><div class="item-desc">Green and red bell peppers and onions scrambled with pepper jack, topped with diced tomatoes, salsa, and sour cream.</div></div>
+        <div class="menu-item"><div class="item-price">$21.95</div><div class="item-name">High Tide Scramble</div><div class="item-desc">Local wild Pacific smoked salmon gently scrambled with cream cheese and chopped green onion.</div></div>
+        <div class="menu-item"><div class="item-price">$20.25</div><div class="item-name">Garden Scramble</div><div class="item-desc">Spinach, mushrooms, zucchini, and roasted red peppers scrambled with feta, topped with diced tomatoes.</div></div>
+      </div>
+    </div>
+
+    <!-- LUNCH -->
+    <div id="panel-lunch" class="menu-panel">
+      <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:0.95rem; letter-spacing:0.14em; color:var(--text-light); margin-bottom:2.5rem;">Served Monday – Friday after 11am · Breakfast only on weekends</p>
+      <div class="cat-head"><h3>House Favorites</h3><p>All sandwiches served with garden salad, coleslaw, or waffle fries</p></div>
+      <div class="menu-grid">
+        <div class="menu-item featured"><div class="item-price">$21.35</div><div class="item-name">The Reuben</div><div class="item-desc">Thin-sliced corned beef cooked in our kitchen, topped with local sauerkraut, melted Swiss, and homemade 1000 island on grilled marbled rye.</div></div>
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">Gourmet Gobbler</div><div class="item-desc">House-roasted turkey breast, crisp bacon, and melted Swiss on grilled whole wheat with lettuce, tomato, and special sauce.</div></div>
+        <div class="menu-item"><div class="item-price">$19.75</div><div class="item-name">Royal Ham Melt</div><div class="item-desc">Thin-sliced ham and melted cheddar on grilled sourdough with lettuce, tomato, and special sauce.</div></div>
+        <div class="menu-item"><div class="item-price">$20.50</div><div class="item-name">Cajun Turkey Melt</div><div class="item-desc">House-roasted turkey, grilled onions, melted pepper jack, lettuce, tomato, mayo, and spicy aioli on grilled whole wheat.</div></div>
+        <div class="menu-item"><div class="item-price">$20.50</div><div class="item-name">Turkey Pesto Ciabatta</div><div class="item-desc">House-roasted turkey, melted Swiss, lettuce, tomato, red onion, mayo, and basil pesto on grilled ciabatta.</div></div>
+        <div class="menu-item"><div class="item-price">$19.75</div><div class="item-name">Monterey Melt</div><div class="item-desc">Caramelized onion and bell peppers with melted pepper jack, sliced avocado, lettuce, tomato, and mayo on grilled sourdough. Add bacon $3.50.</div></div>
+        <div class="menu-item"><div class="item-price">$21.35</div><div class="item-name">The New Yorker</div><div class="item-desc">Warm corned beef and melted Swiss under fresh coleslaw on marbled rye, lightly dressed with homemade 1000 island.</div></div>
+        <div class="menu-item"><div class="item-price">$19.35</div><div class="item-name">B.L.T.</div><div class="item-desc">Thick-cut bacon, lettuce, and tomato on grilled sourdough. Add cheese $1.75, avocado $1.95.</div></div>
+        <div class="menu-item"><div class="item-price">$20.25</div><div class="item-name">Monte Cristo</div><div class="item-desc">Thinly sliced ham and melted Swiss between two golden egg-battered sourdough slices. Dusted with powdered sugar, sided with raspberry preserves.</div></div>
+      </div>
+      <div class="cat-divider">· · ✦ · ·</div>
+      <div class="cat-head"><h3>Gourmet Burgers</h3><p>6 oz. hand-formed 100% ground chuck · With waffle fries, coleslaw, or garden salad</p></div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-price">$17.55</div><div class="item-name">Classic Burger</div><div class="item-desc">Leaf lettuce, sliced tomato, red onion, and our specialty drive-in sauce. Add cheese $1.75, add thick bacon $3.50.</div></div>
+        <div class="menu-item"><div class="item-price">$19.95</div><div class="item-name">Bacon Blue Burger</div><div class="item-desc">Melted blue cheese crumbles, sliced bacon, and caramelized onions with lettuce, tomato, and cajun aioli.</div></div>
+        <div class="menu-item"><div class="item-price">$19.25</div><div class="item-name">Mushroom Swiss Burger</div><div class="item-desc">Flavorful sautéed mushrooms piled high and covered in melted Swiss, with lettuce, tomato, onion, and drive-in sauce.</div></div>
+        <div class="menu-item"><div class="item-price">$19.25</div><div class="item-name">Electric Horseman Burger</div><div class="item-desc">Smothered in homemade BBQ sauce with pepper jack, jalapeños, sliced tomato, and fresh coleslaw.</div></div>
+      </div>
+      <div class="cat-divider">· · ✦ · ·</div>
+      <div class="cat-head"><h3>Entrée Salads</h3><p>Scratch-made dressings · Served with a rustic roll</p></div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-price">$20.45</div><div class="item-name">Strawberry Fields</div><div class="item-desc">Mixed greens with fresh strawberries, crisp bacon, feta cheese, and roasted pecans. Creamy balsamic dressing.</div></div>
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">Harvest Salad</div><div class="item-desc">Mixed greens with chopped apples, candied walnuts, blue cheese crumbles, and sliced turkey breast. Apple cider vinaigrette.</div></div>
+        <div class="menu-item"><div class="item-price">$20.95</div><div class="item-name">Farmhouse Salad</div><div class="item-desc">Mixed greens with cucumbers, diced tomatoes, avocado, cheddar, Swiss, smoked ham, crumbled bacon, and homemade croutons.</div></div>
+        <div class="menu-item"><div class="item-price">$17.55</div><div class="item-name">Rustic Caesar</div><div class="item-desc">Fresh greens tossed in robust Caesar dressing, garnished with shaved Italian cheeses and homemade croutons. Add wild Pacific smoked salmon $5.95.</div></div>
+        <div class="menu-item"><div class="item-price">$16.95</div><div class="item-name">The Trio</div><div class="item-desc">A cup of homemade soup, a rustic roll, and a large garden salad with your choice of dressing.</div></div>
+        <div class="menu-item"><div class="item-price">Bowl $12.35 · Cup $9.95</div><div class="item-name">Seasonal Soup</div><div class="item-desc">Made in-house. Ask your server for today's selection. Bowl served with a rustic roll.</div></div>
+      </div>
+    </div>
+
+    <!-- DRINKS -->
+    <div id="panel-drinks" class="menu-panel">
+      <div class="cat-head"><h3>Coffee & Espresso</h3><p>Locally roasted by Lotus Coffee Roasters · All espresso drinks 14oz, double shot</p></div>
+      <div class="bev-row">
+        <div class="bev-item"><div class="item-price">$5.25</div><div class="item-name">Drip Coffee</div><div class="item-desc">Bottomless. Regular or decaf.</div></div>
+        <div class="bev-item"><div class="item-price">$5.50</div><div class="item-name">Americano</div><div class="item-desc">Double shot espresso.</div></div>
+        <div class="bev-item"><div class="item-price">$6.50</div><div class="item-name">Latte</div><div class="item-desc">Double shot, steamed milk.</div></div>
+        <div class="bev-item"><div class="item-price">$6.50</div><div class="item-name">Cappuccino</div></div>
+        <div class="bev-item"><div class="item-price">$6.75</div><div class="item-name">Masala Chai</div><div class="item-desc">Locally made.</div></div>
+        <div class="bev-item"><div class="item-price">$6.65</div><div class="item-name">Hot Chocolate</div></div>
+        <div class="bev-item"><div class="item-price">$6.95</div><div class="item-name">Mocha</div><div class="item-desc">2 shots, chocolate, espresso whipped cream.</div></div>
+        <div class="bev-item"><div class="item-price">$6.95</div><div class="item-name">Viennese</div><div class="item-desc">2 shots, cinnamon, vanilla, espresso whipped cream.</div></div>
+        <div class="bev-item"><div class="item-price">$5.25</div><div class="item-name">Hot Tea</div><div class="item-desc">From Spice Hut.</div></div>
+        <div class="bev-item"><div class="item-price">$5.25</div><div class="item-name">Iced Tea</div><div class="item-desc">Fresh brewed, bottomless.</div></div>
+      </div>
+      <div class="cat-divider">· · ✦ · ·</div>
+      <div class="cat-head"><h3>Fresh Juices</h3><p>Squeezed in-house every morning</p></div>
+      <div class="bev-row">
+        <div class="bev-item"><div class="item-price">$6.75</div><div class="item-name">Orange Juice</div><div class="item-desc">Fresh-squeezed. Kid $5.40.</div></div>
+        <div class="bev-item"><div class="item-price">$6.75</div><div class="item-name">Grapefruit Juice</div><div class="item-desc">Fresh-squeezed. Kid $5.40.</div></div>
+        <div class="bev-item"><div class="item-price">$5.30</div><div class="item-name">Apple · Cranberry · Tomato</div><div class="item-desc">Kid $4.90.</div></div>
+        <div class="bev-item"><div class="item-price">$5.95</div><div class="item-name">House Lemonade</div><div class="item-desc">Hand-squeezed fresh daily.</div></div>
+        <div class="bev-item"><div class="item-price">$5.95</div><div class="item-name">Arnold Palmer</div><div class="item-desc">Iced tea and fresh lemonade.</div></div>
+      </div>
+      <div class="cat-divider">· · ✦ · ·</div>
+      <div class="cat-head"><h3>Libations</h3><p>Mimosas, beer, and wine</p></div>
+      <div class="menu-grid two-col">
+        <div class="menu-item"><div class="item-price">$9.95</div><div class="item-name">Mimosas</div><div class="item-desc">Fresh orange, grapefruit, pomegranate, honey lavender, or peach. Ask about the monthly special!</div></div>
+        <div class="menu-item"><div class="item-price">$12.50</div><div class="item-name">Bloody Mary</div><div class="item-desc">Homemade mix, vodka, and all the fixings.</div></div>
+        <div class="menu-item"><div class="item-price">$12.50</div><div class="item-name">Moscow Mule</div><div class="item-desc">Refreshing lime, vodka, and ginger beer.</div></div>
+        <div class="menu-item"><div class="item-price">$12.50</div><div class="item-name">Screwdriver or Greyhound</div><div class="item-desc">Fresh-squeezed OJ or grapefruit with vodka, on the rocks.</div></div>
+        <div class="menu-item"><div class="item-price">$12.50</div><div class="item-name">Irish Coffee</div><div class="item-desc">Fresh brewed coffee, Irish cream, whiskey, topped with espresso whipped cream.</div></div>
+        <div class="menu-item"><div class="item-price">$12.50</div><div class="item-name">Whiskey Sour Lemonade</div><div class="item-desc">Hand-squeezed lemonade, Kentucky bourbon, and Amarena cherry.</div></div>
+        <div class="menu-item"><div class="item-price">$7.50</div><div class="item-name">Draft Beer</div><div class="item-desc">Two rotating taps — ask your server for today's selections.</div></div>
+        <div class="menu-item"><div class="item-price">$9.95</div><div class="item-name">House White Wine</div><div class="item-desc">Ask your server for current selection.</div></div>
+      </div>
+    </div>
+
+  </div><!-- /menu-inner -->
+</div><!-- /menu section -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- FEATURE BAND                       -->
+<!-- ═══════════════════════════════════ -->
+<div class="sketch-feature">
+  <div class="sketch-feature-header" style="max-width:1100px; margin:0 auto 3.5rem;">
+    <span class="section-ornament">✦</span>
+    <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3.5vw,2.4rem); font-weight:400; color:var(--text-dark); line-height:1.1;">Our <em style="font-style:italic; color:var(--rust);">Promise</em></h2>
+    <div class="section-rule"><span>✦</span></div>
+    <p class="section-sub">What sets our kitchen apart — and keeps guests coming back for decades</p>
+  </div>
+  <div class="sketch-feature-inner" style="max-width:1100px; margin:0 auto;">
+
+    <div class="sketch-feature-text">
+      <h3>Made from scratch,<br>every morning</h3>
+      <p>Starting at dawn, our chefs prepare numerous batters from authentic, coveted recipes — never from packaged mixes. All carefully blended by hand using fresh ingredients of the highest quality.</p>
+      <p>Our sourdough starter has been handed down from generation to generation, and is what gives our pancakes their incomparable light, fine texture.</p>
+      <div class="section-rule" style="max-width:180px; margin-top:1.5rem; justify-content:flex-start;"><span>✦</span></div>
+    </div>
+
+    <div class="sketch-feature-text">
+      <h3>Locally sourced,<br>with love</h3>
+      <p>Our orange juice, grapefruit juice, and lemonade are freshly squeezed every morning. Our butter exceeds USDA 93 score — the finest available, rendered in-house.</p>
+      <p>We use locally roasted coffee, locally sourced ingredients wherever possible, and everything we can make in-house, we do. Nothing can replace fresh products for food value and taste.</p>
+      <div class="section-rule" style="max-width:180px; margin-top:1.5rem; justify-content:flex-start;"><span>✦</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- OUR STORY                          -->
+<!-- ═══════════════════════════════════ -->
+<div class="story-wrap" id="story">
+  <div class="story-inner">
+    <div style="text-align:center;">
+      <span class="section-ornament" style="color:var(--warm-gold);">✦</span>
+      <h2>Our Story</h2>
+      <div class="story-rule"></div>
+    </div>
+    <div class="cat-divider" style="color:var(--warm-gold); opacity:0.35; margin:0 0 2.5rem;">· · ✦ · ·</div>
+    <div class="story-cols">
+      <div>
+        <p>The Birch Door Café brings to the table three generations of restaurant excellence. It all began with my grandparents' restaurant in Chicago over 50 years ago. Following in their footsteps, my parents opened the Oak Table Café in Sequim in 1981.</p>
+        <p>Growing up in my parents' restaurant alongside my two siblings, we fell in love with the family business. After graduating from Western Washington University in 2008, I helped my sister open her restaurant in Silverdale, then in 2011, along with my wife Taria, we opened The Maple Counter Café in Walla Walla.</p>
+        <p>Carrying the flag of our family's tradition of warm hospitality and delicious food, Taria and I are thrilled to plant our roots here in Bellingham. We hope that through our handcrafted meals and caring service we can be a bright spot in your day.</p>
+        <div class="cat-divider" style="color:var(--warm-gold); opacity:0.3; margin:1.8rem 0;">· · ✦ · ·</div>
+        <div class="story-sig">With Love, Casey & Taria</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">The Birch Door Café</div>
+  <p>
+    Open Daily 7am – 3pm · No Reservations<br>
+    4192 Meridian St, Bellingham, WA 98226<br>
+    <a href="tel:3603068598">(360) 306-8598</a> · <a href="mailto:birchdoorcafe@gmail.com">birchdoorcafe@gmail.com</a>
+  </p>
+  <div class="footer-links">
+    <a href="https://direct.chownow.com/order/27116/locations/40149" target="_blank">Order Online</a>
+    <a href="https://www.facebook.com/birchdoorcafe/" target="_blank">Facebook</a>
+    <a href="https://www.instagram.com/birchdoorcafe/" target="_blank">Instagram</a>
+    <a href="https://birchdoorcafe.com/store/product/birch-door-cafe-gift-cards/" target="_blank">Gift Cards</a>
+  </div>
+  <p style="margin-top:2rem; font-size:0.77rem; opacity:0.25; letter-spacing:0.04em;">*Consuming undercooked eggs or meat may increase your risk of foodborne illness. Gluten-free toast and vegan sausages available upon request. 18% gratuity added for parties of 10 or more.</p>
+</footer>
+
+<script>
+  function showTab(tab, btn) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
