@@ -19,7 +19,7 @@
     --text-light: #9c7e65;
     --rust: #b85c3a;
     --nav-bg: #2a1f14;
-    --hero-bg: #cec0a4;
+    --hero-bg: #e8ddd0;
     --card-bg: #f6f0e6;
     --border: rgba(184,148,90,0.22);
   }
@@ -56,59 +56,93 @@
 
   /* HERO */
   .hero {
-    min-height: 100vh; background: var(--hero-bg);
-    background-image: radial-gradient(ellipse at 25% 65%, rgba(200,168,107,0.22) 0%, transparent 55%),
-      radial-gradient(ellipse at 80% 25%, rgba(184,92,58,0.1) 0%, transparent 45%);
+    background-color: #faf6ee;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: 6rem 2rem 5rem; position: relative; overflow: hidden;
+    text-align: center; padding: calc(54px + 2.2rem) 2rem 3.2rem; position: relative; overflow: hidden;
   }
-  .hero::before {
-    content: ''; position: absolute; inset: 0;
-    background-image: repeating-linear-gradient(0deg, transparent, transparent 47px, rgba(61,46,30,0.06) 47px, rgba(61,46,30,0.06) 48px);
+  /* Subtle warm vignette */
+  .hero::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(184,148,90,0.07) 100%);
   }
+  /* Decorative corner frame — top offset accounts for fixed nav (54px) */
+  .hero-frame {
+    position: absolute;
+    top: calc(54px + 0.8rem); left: 1.6rem; right: 1.6rem; bottom: 1.6rem;
+    border: 1px solid rgba(184,148,90,0.28);
+    pointer-events: none;
+  }
+  .hero-frame::before {
+    content: ''; position: absolute; inset: 5px;
+    border: 1px solid rgba(184,148,90,0.1);
+  }
+  .hero-frame span {
+    position: absolute; display: block; width: 1.6rem; height: 1.6rem;
+  }
+  .hf-tl { top: -1px; left: -1px; border-top: 2px solid rgba(184,148,90,0.7); border-left: 2px solid rgba(184,148,90,0.7); }
+  .hf-tr { top: -1px; right: -1px; border-top: 2px solid rgba(184,148,90,0.7); border-right: 2px solid rgba(184,148,90,0.7); }
+  .hf-bl { bottom: -1px; left: -1px; border-bottom: 2px solid rgba(184,148,90,0.7); border-left: 2px solid rgba(184,148,90,0.7); }
+  .hf-br { bottom: -1px; right: -1px; border-bottom: 2px solid rgba(184,148,90,0.7); border-right: 2px solid rgba(184,148,90,0.7); }
   .hero-eyebrow {
     font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; letter-spacing: 0.4em;
-    text-transform: uppercase; color: var(--mid-gold); opacity: 0.9; margin-bottom: 1.8rem;
+    text-transform: uppercase; color: var(--mid-gold); margin-bottom: 0.9rem;
   }
-  .hero h1 {
-    font-family: 'Playfair Display', serif; font-size: clamp(3.2rem, 8.5vw, 7rem);
-    font-weight: 400; color: var(--text-dark); line-height: 1.0;
+  .hero-logo-wrap { margin: 0 auto; }
+  .hero-logo-img {
+    width: auto; max-width: 100%; height: auto; display: block;
+    mix-blend-mode: multiply;
+    filter: sepia(0.12) contrast(1.06) brightness(1.06);
   }
-  .hero h1 em { font-style: italic; color: var(--rust); }
-  .hero-rule { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--mid-gold), transparent); margin: 2rem auto; }
-  .hero-info {
-    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--text-mid);
-    letter-spacing: 0.08em; line-height: 2.1; margin-bottom: 2.8rem;
+  .hero-ornament {
+    font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--warm-gold);
+    letter-spacing: 0.55em; margin: 0.1rem 0 0.4rem; opacity: 0.65;
   }
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 0; }
   .btn-primary {
     display: inline-block; background: var(--nav-bg); color: var(--warm-gold);
-    font-family: 'EB Garamond', serif; font-size: 0.88rem; font-weight: 500;
+    font-family: 'EB Garamond', serif; font-size: 0.87rem; font-weight: 500;
     letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
-    padding: 0.9rem 2.4rem; border: 1.5px solid var(--nav-bg); transition: all 0.22s;
+    padding: 0.85rem 2.2rem; border: 1px solid rgba(200,168,107,0.35);
+    position: relative; transition: all 0.22s;
   }
-  .btn-primary:hover { background: transparent; color: var(--nav-bg); border-color: var(--nav-bg); }
+  .btn-primary::after {
+    content: ''; position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px;
+    border: 1px solid rgba(200,168,107,0.62); pointer-events: none;
+  }
+  .btn-primary:hover { background: rgba(42,31,20,0.85); color: var(--cream); }
   .btn-ghost {
-    display: inline-block; background: transparent; color: var(--text-mid);
-    font-family: 'EB Garamond', serif; font-size: 0.88rem; letter-spacing: 0.2em;
-    text-transform: uppercase; text-decoration: none; padding: 0.9rem 2.4rem;
-    border: 1px solid rgba(61,46,30,0.3); transition: all 0.22s;
+    display: inline-block; background: var(--card-bg); color: var(--text-dark);
+    font-family: 'EB Garamond', serif; font-size: 0.87rem; letter-spacing: 0.2em;
+    text-transform: uppercase; text-decoration: none; padding: 0.85rem 2.2rem;
+    border: 1px solid var(--border); position: relative; transition: all 0.22s;
   }
-  .btn-ghost:hover { border-color: var(--text-dark); color: var(--text-dark); }
+  .btn-ghost::after {
+    content: ''; position: absolute; top: 3px; left: 3px; right: 3px; bottom: 3px;
+    border: 1px solid rgba(184,148,90,0.12); pointer-events: none;
+  }
+  .btn-ghost:hover { border-color: var(--mid-gold); color: var(--text-dark); background: var(--parchment); }
 
   /* FEATURE STRIP */
   .sketch-strip {
     background: var(--parchment);
     border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    padding: 3rem 2rem;
+    padding: 0 2rem 1.2rem;
   }
+  .strip-info {
+    text-align: center; padding: 0.85rem 0 0.9rem;
+    border-bottom: 1px solid var(--border); margin-bottom: 0.2rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 0.92rem;
+    letter-spacing: 0.1em; color: var(--text-mid);
+  }
+  .strip-info a { color: var(--text-mid); text-decoration: none; }
+  .strip-info a:hover { color: var(--warm-gold); }
   .sketch-inner {
     max-width: 1100px; margin: 0 auto;
     display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; align-items: center;
   }
   .sketch-item {
-    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
-    padding: 1.2rem 1.4rem; border-right: 1px solid var(--border); text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+    padding: 0.85rem 1.2rem; border-right: 1px solid var(--border); text-align: center;
   }
   .sketch-item:last-child { border-right: none; }
   .feat-orn { font-size: 1.1rem; color: var(--warm-gold); margin-bottom: 0.5rem; }
@@ -218,6 +252,115 @@
   .footer-links a { font-family: 'EB Garamond', serif; font-size: 0.83rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--parchment); opacity: 0.38; text-decoration: none; transition: opacity 0.2s; }
   .footer-links a:hover { opacity: 0.9; color: var(--warm-gold); }
 
+  /* SHARED PHOTO STYLES */
+  .photo-item { overflow: hidden; position: relative; }
+  .photo-item img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: sepia(0.2) saturate(1.1) contrast(1.07) brightness(1.01);
+    transition: filter 0.42s ease, transform 0.42s ease;
+  }
+  .photo-item:hover img {
+    filter: sepia(0.04) saturate(1.22) contrast(1.09) brightness(1.06);
+    transform: scale(1.04);
+  }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(42,31,20,0.72));
+    color: var(--parchment); font-family: 'Cormorant Garamond', serif;
+    font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 2rem 0.9rem 0.65rem; opacity: 0; transition: opacity 0.3s;
+  }
+  .photo-item:hover .photo-caption { opacity: 1; }
+
+  /* MENU PHOTO ROW — small smatterings */
+  .menu-photo-strip {
+    max-width: 1100px; margin: 0 auto 2.8rem;
+    display: flex; gap: 6px; height: 148px;
+  }
+  .menu-photo-strip .photo-item { flex: 1; }
+
+  /* FEATURE BAND PHOTOS — small accent */
+  .feat-photo { height: 165px; margin-top: 1.5rem; border: 1px solid var(--border); }
+
+  /* STORY PHOTOS — small row */
+  .story-photos {
+    display: flex; gap: 6px; height: 140px;
+    margin-top: 2.5rem;
+  }
+  .story-photos .photo-item { flex: 1; }
+  .story-photos .photo-item img { filter: sepia(0.3) saturate(0.95) contrast(1.1) brightness(0.82); }
+  .story-photos .photo-item:hover img { filter: sepia(0.08) saturate(1.15) contrast(1.1) brightness(1.0); }
+
+  /* MODAL */
+  .menu-item { cursor: pointer; }
+  .item-modal {
+    display: none; position: fixed; inset: 0; z-index: 500;
+    align-items: center; justify-content: center; padding: 1rem;
+  }
+  .item-modal.open { display: flex; }
+  .modal-backdrop {
+    position: absolute; inset: 0; cursor: pointer;
+    background: rgba(28,16,6,0.58); backdrop-filter: blur(3px);
+  }
+  .modal-card {
+    position: relative; z-index: 1; background: var(--cream);
+    width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto;
+    border: 1px solid var(--border);
+    box-shadow: 0 28px 70px rgba(28,16,6,0.32), inset 0 0 0 1px rgba(184,148,90,0.13);
+  }
+  .modal-close {
+    position: absolute; top: 0.7rem; right: 0.8rem; z-index: 3;
+    background: none; border: none; cursor: pointer; width: 1.8rem; height: 1.8rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+    color: var(--text-light); transition: color 0.18s; line-height: 1;
+  }
+  .modal-close:hover { color: var(--text-dark); }
+  .modal-img-wrap { height: 215px; overflow: hidden; display: none; }
+  .modal-img-wrap.has-img { display: block; }
+  .modal-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: sepia(0.18) saturate(1.1) contrast(1.07) brightness(1.02);
+  }
+  .modal-body { padding: 1.6rem 1.75rem 1.8rem; }
+  .modal-header { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; }
+  .modal-item-name {
+    font-family: 'Playfair Display', serif; font-size: 1.22rem; font-weight: 600;
+    color: var(--text-dark); line-height: 1.2;
+  }
+  .modal-item-price { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--rust); flex-shrink: 0; }
+  .modal-divider {
+    font-family: 'Cormorant Garamond', serif; color: var(--warm-gold); opacity: 0.45;
+    letter-spacing: 0.5em; font-size: 0.88rem; text-align: center; margin: 0.9rem 0;
+  }
+  .modal-item-desc { font-family: 'EB Garamond', serif; font-size: 0.96rem; color: var(--text-mid); font-style: italic; line-height: 1.65; }
+  .modal-opts { margin-top: 1.3rem; display: flex; flex-direction: column; gap: 1rem; }
+  .modal-label {
+    display: block; font-family: 'Cormorant Garamond', serif; font-size: 0.75rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.45rem;
+  }
+  .modal-radio-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .modal-radio-row label {
+    font-family: 'EB Garamond', serif; font-size: 0.84rem; color: var(--text-mid);
+    border: 1px solid var(--border); padding: 0.28rem 0.72rem;
+    cursor: pointer; background: var(--card-bg); transition: all 0.16s; user-select: none;
+  }
+  .modal-radio-row label.active { background: var(--nav-bg); color: var(--warm-gold); border-color: transparent; }
+  .modal-radio-row input[type="radio"] { display: none; }
+  .modal-requests { margin-top: 1.2rem; }
+  .modal-textarea {
+    width: 100%; border: 1px solid var(--border); background: var(--card-bg);
+    font-family: 'EB Garamond', serif; font-size: 0.94rem; color: var(--text-mid);
+    padding: 0.55rem 0.75rem; resize: vertical; outline: none; line-height: 1.5;
+    transition: border-color 0.18s;
+  }
+  .modal-textarea:focus { border-color: rgba(184,148,90,0.55); }
+  .modal-textarea::placeholder { color: var(--text-light); opacity: 0.75; }
+  .modal-footer {
+    margin-top: 1.4rem; padding-top: 1.2rem;
+    border-top: 1px solid var(--border); text-align: center;
+  }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .sketch-feature-inner { grid-template-columns: 1fr; }
@@ -226,6 +369,9 @@
     .story-sketch { display: none; }
   }
   @media (max-width: 700px) {
+    .menu-photo-strip { height: 120px; }
+    .menu-photo-strip .photo-item:nth-child(n+4) { display: none; }
+    .story-photos { height: 110px; }
     .sketch-inner { grid-template-columns: repeat(3, 1fr); }
     .sketch-item:nth-child(n+4) { display: none; }
     .menu-tabs { flex-direction: column; width: 100%; }
@@ -235,6 +381,10 @@
   @media (max-width: 480px) {
     .sketch-inner { grid-template-columns: repeat(2, 1fr); }
     .sketch-item:nth-child(n+3) { display: none; }
+    .menu-photo-strip { height: 100px; }
+    .menu-photo-strip .photo-item:nth-child(n+3) { display: none; }
+    .story-photos { height: 90px; }
+    .story-photos .photo-item:last-child { display: none; }
     nav { padding: 0 1rem; }
     .nav-links { gap: 1rem; }
   }
@@ -254,14 +404,17 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-eyebrow">Bellingham, Washington · Est. with Love</div>
-  <h1>The Birch<br><em>Door Café</em></h1>
-  <div class="hero-rule"></div>
-  <div class="hero-info">
-    Open Daily 7am – 3pm &nbsp;·&nbsp; No Reservations<br>
-    Breakfast served all day &nbsp;·&nbsp; Lunch Mon–Fri after 11am<br>
-    4192 Meridian St &nbsp;·&nbsp; (360) 306-8598
+  <div class="hero-frame">
+    <span class="hf-tl"></span>
+    <span class="hf-tr"></span>
+    <span class="hf-bl"></span>
+    <span class="hf-br"></span>
   </div>
+  <div class="hero-logo-wrap">
+    <img src="images/logo.jpg" class="hero-logo-img" alt="The Birch Door Café">
+  </div>
+  <div class="hero-ornament">· · ✦ · ·</div>
+  <div class="hero-eyebrow">Bellingham, Washington &nbsp;·&nbsp; Est. with Love</div>
   <div class="hero-btns">
     <a href="https://direct.chownow.com/order/27116/locations/40149" class="btn-primary" target="_blank">Order Online</a>
     <a href="#menu" class="btn-ghost">View Menu</a>
@@ -272,6 +425,9 @@
 <!-- FEATURE STRIP                      -->
 <!-- ═══════════════════════════════════ -->
 <div class="sketch-strip">
+  <div class="strip-info">
+    Open Daily 7am – 3pm &nbsp;·&nbsp; Breakfast all day &nbsp;·&nbsp; Lunch Mon–Fri after 11am &nbsp;·&nbsp; <a href="https://maps.apple.com/?q=4192+Meridian+St+Bellingham+WA" target="_blank">4192 Meridian St</a> &nbsp;·&nbsp; <a href="tel:3603068598">(360) 306-8598</a>
+  </div>
   <div class="sketch-inner">
 
     <div class="sketch-item">
@@ -321,6 +477,26 @@
     <h2>Our <em>Menu</em></h2>
     <div class="section-rule"><span>✦</span></div>
     <p class="section-sub">Three generations of restaurant excellence · Everything made from scratch, every morning</p>
+  </div>
+
+  <!-- MENU PHOTO STRIP -->
+  <div class="menu-photo-strip">
+    <div class="photo-item">
+      <img src="images/348s.jpg" alt="Blueberry Lemon Cobbler French Toast">
+      <div class="photo-caption">Cobbler French Toast</div>
+    </div>
+    <div class="photo-item">
+      <img src="images/348s-5.jpg" alt="Strawberry Granola Pancakes">
+      <div class="photo-caption">Strawberry Pancakes</div>
+    </div>
+    <div class="photo-item">
+      <img src="images/348s-9.jpg" alt="California Benedict">
+      <div class="photo-caption">California Benedict</div>
+    </div>
+    <div class="photo-item">
+      <img src="images/348s-7.jpg" alt="Blueberry Cobbler French Toast">
+      <div class="photo-caption">Blueberry Cobbler</div>
+    </div>
   </div>
 
   <div class="menu-tabs">
@@ -511,6 +687,10 @@
       <p>Starting at dawn, our chefs prepare numerous batters from authentic, coveted recipes — never from packaged mixes. All carefully blended by hand using fresh ingredients of the highest quality.</p>
       <p>Our sourdough starter has been handed down from generation to generation, and is what gives our pancakes their incomparable light, fine texture.</p>
       <div class="section-rule" style="max-width:180px; margin-top:1.5rem; justify-content:flex-start;"><span>✦</span></div>
+      <div class="feat-photo photo-item">
+        <img src="images/348s-8.jpg" alt="Blueberry Pancakes">
+        <div class="photo-caption">Blueberry Pancakes</div>
+      </div>
     </div>
 
     <div class="sketch-feature-text">
@@ -518,6 +698,10 @@
       <p>Our orange juice, grapefruit juice, and lemonade are freshly squeezed every morning. Our butter exceeds USDA 93 score — the finest available, rendered in-house.</p>
       <p>We use locally roasted coffee, locally sourced ingredients wherever possible, and everything we can make in-house, we do. Nothing can replace fresh products for food value and taste.</p>
       <div class="section-rule" style="max-width:180px; margin-top:1.5rem; justify-content:flex-start;"><span>✦</span></div>
+      <div class="feat-photo photo-item">
+        <img src="images/348s-2.jpg" alt="Locally Roasted Coffee">
+        <div class="photo-caption">Locally Roasted · Lotus Coffee</div>
+      </div>
     </div>
 
   </div>
@@ -543,6 +727,40 @@
         <div class="story-sig">With Love, Casey & Taria</div>
       </div>
     </div>
+    <div class="story-photos">
+      <div class="photo-item">
+        <img src="images/348s-3.jpg" alt="German Pancake">
+        <div class="photo-caption">German Pancake</div>
+      </div>
+      <div class="photo-item">
+        <img src="images/348s-6.jpg" alt="Chocolate Chip Pancakes">
+        <div class="photo-caption">Chocolate Chip Pancakes</div>
+      </div>
+      <div class="photo-item">
+        <img src="images/348s-11.jpg" alt="Seasonal Cocktail">
+        <div class="photo-caption">Seasonal Cocktail</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ITEM MODAL -->
+<div id="item-modal" class="item-modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+  <div class="modal-backdrop"></div>
+  <div class="modal-card">
+    <button class="modal-close" aria-label="Close">✕</button>
+    <div class="modal-img-wrap" id="modal-img-wrap">
+      <img id="modal-img" src="" alt="">
+    </div>
+    <div class="modal-body">
+      <div class="modal-header">
+        <div class="modal-item-name" id="modal-name"></div>
+        <div class="modal-item-price"></div>
+      </div>
+      <div class="modal-divider">· · ✦ · ·</div>
+      <div class="modal-item-desc"></div>
+      <div class="modal-opts" id="modal-opts"></div>
+    </div>
   </div>
 </div>
 
@@ -556,6 +774,7 @@
   </p>
   <div class="footer-links">
     <a href="https://direct.chownow.com/order/27116/locations/40149" target="_blank">Order Online</a>
+    <a href="https://www.yelp.com/biz/the-birch-door-cafe-bellingham" target="_blank">Yelp</a>
     <a href="https://www.facebook.com/birchdoorcafe/" target="_blank">Facebook</a>
     <a href="https://www.instagram.com/birchdoorcafe/" target="_blank">Instagram</a>
     <a href="https://birchdoorcafe.com/store/product/birch-door-cafe-gift-cards/" target="_blank">Gift Cards</a>
@@ -564,12 +783,127 @@
 </footer>
 
 <script>
+  // ── TAB SWITCHING ──────────────────────────────────────────────
   function showTab(tab, btn) {
     document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('panel-' + tab).classList.add('active');
     btn.classList.add('active');
   }
+
+  // ── MENU ITEM MODAL ────────────────────────────────────────────
+  const ITEM_IMAGES = {
+    'The Apple Pancake':                    'images/348s-4.jpg',
+    'Blueberry Lemon Cobbler French Toast': 'images/348s.jpg',
+    'German Pancake':                       'images/348s-3.jpg',
+    'Blueberry Pancakes':                   'images/348s-8.jpg',
+    'Strawberry-Granola Pancakes':          'images/348s-5.jpg',
+    'Chocolate Chip Pancakes':              'images/348s-6.jpg',
+    'California Benedict':                  'images/348s-9.jpg',
+    'Fresh Fruit Porridge':                 'images/348s-10.jpg',
+    'Mimosas':                              'images/348s-11.jpg',
+    'Viennese':                             'images/348s-2.jpg',
+    'Mocha':                                'images/348s-2.jpg',
+    'Hot Chocolate':                        'images/348s-2.jpg',
+  };
+
+  const PANEL_OPTS = {
+    breakfast: [{ label: 'Egg Style', choices: ['Scrambled','Over Easy','Over Medium','Over Hard','Sunny Side Up'] }],
+    eggs:      [{ label: 'Served With', choices: ['Three Buttermilk Pancakes','Breakfast Potatoes'] }],
+    lunch:     [{ label: 'Choice of Side', choices: ['Waffle Fries','Coleslaw','Garden Salad'] }],
+  };
+
+  // Pancake-only breakfast items — skip egg style selector
+  const PURE_PANCAKE = new Set([
+    'Classic Buttermilk Pancakes','Blueberry Pancakes','Bacon Pancakes',
+    'Chocolate Chip Pancakes','Apple & Cinnamon Pancakes','Roasted Pecan Pancakes',
+    'The Apple Pancake','Strawberry-Granola Pancakes','Buckwheat Pancakes',
+    "49'er Flapjacks",'Pigs in a Blanket','Classic French Toast',
+  ]);
+
+  const modal       = document.getElementById('item-modal');
+  const imgWrap     = document.getElementById('modal-img-wrap');
+  const modalImg    = document.getElementById('modal-img');
+  const modalName   = document.getElementById('modal-name');
+  const modalPrice  = modal.querySelector('.modal-item-price');
+  const modalDesc   = modal.querySelector('.modal-item-desc');
+  const modalOpts   = document.getElementById('modal-opts');
+
+  function openModal(el) {
+    const name    = el.querySelector('.item-name').textContent.trim();
+    const price   = el.querySelector('.item-price').textContent.trim();
+    const descEl  = el.querySelector('.item-desc');
+    const desc    = descEl ? descEl.textContent.trim() : '';
+    const panel   = el.closest('.menu-panel');
+    const panelId = panel ? panel.id.replace('panel-','') : '';
+
+    // Image
+    const src = ITEM_IMAGES[name];
+    if (src) { modalImg.src = src; modalImg.alt = name; imgWrap.classList.add('has-img'); }
+    else { imgWrap.classList.remove('has-img'); }
+
+    // Text
+    modalName.textContent  = name;
+    modalPrice.textContent = price;
+    modalDesc.textContent  = desc;
+
+    // Options
+    let opts = PANEL_OPTS[panelId] ? [...PANEL_OPTS[panelId]] : [];
+    if (panelId === 'breakfast' && PURE_PANCAKE.has(name)) opts = [];
+    modalOpts.innerHTML = '';
+    opts.forEach(function(group) {
+      const wrap  = document.createElement('div');
+      wrap.className = 'modal-opt-group';
+      const lbl = document.createElement('span');
+      lbl.className = 'modal-label';
+      lbl.textContent = group.label;
+      wrap.appendChild(lbl);
+      const row = document.createElement('div');
+      row.className = 'modal-radio-row';
+      const gname = 'opt-' + panelId + '-' + group.label.replace(/\s+/g,'-');
+      group.choices.forEach(function(c, i) {
+        const label = document.createElement('label');
+        if (i === 0) label.classList.add('active');
+        const inp = document.createElement('input');
+        inp.type = 'radio'; inp.name = gname; inp.value = c;
+        if (i === 0) inp.checked = true;
+        const span = document.createElement('span');
+        span.textContent = c;
+        label.appendChild(inp); label.appendChild(span);
+        row.appendChild(label);
+      });
+      wrap.appendChild(row);
+      modalOpts.appendChild(wrap);
+    });
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Open via event delegation
+  document.querySelector('.menu-inner').addEventListener('click', function(e) {
+    const item = e.target.closest('.menu-item');
+    if (item) openModal(item);
+  });
+
+  // Close handlers
+  document.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+  document.querySelector('.modal-close').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+  // Radio pill toggle
+  document.addEventListener('change', function(e) {
+    if (e.target.type === 'radio' && e.target.closest('.modal-radio-row')) {
+      const row = e.target.closest('.modal-radio-row');
+      row.querySelectorAll('label').forEach(function(l) { l.classList.remove('active'); });
+      e.target.parentElement.classList.add('active');
+    }
+  });
 </script>
 </body>
 </html>
